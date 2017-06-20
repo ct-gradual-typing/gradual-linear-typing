@@ -81,6 +81,7 @@
 \newcommand{\inn}[0]{\,\mathsf{in}\,}
 \newcommand{\cur}[1]{\mathsf{cur}(#1)}
 \newcommand{\curi}[1]{\mathsf{cur}^{-1}(#1)}
+\newcommand{\lolli}{\multimap}
 
 \newcommand{\w}[1]{\mathsf{weak}_{#1}}
 \newcommand{\c}[1]{\mathsf{contra}_{#1}}
@@ -154,9 +155,16 @@
   \item a pair of symmetric monoidal functors $(G, n) : \cat{L} \mto \cat{C}$ and $(F, m) : \cat{C} \mto \cat{L}$ forming a symmetric monoidal adjunction with $F \dashv G$.
   \end{enumerate}
   that satisfy the following additional conditions:
+  \begin{enumerate}
+  \item $F\star \lolli F\star$ is a retract of $F(\star \Rightarrow \star)$. That is, there exist morphisms $m_r : F(\star) \lolli F(\star) \mto F(\star \Rightarrow \star)$ and $m_l : F(\star \Rightarrow \star) \mto F(\star) \lolli F(star)$ with $m_r ; m_l = \id_{F(\star) \lolli F(\star)}$.
+  \item $G(\star) \cong \star$
+  \end{enumerate}
 
 \end{definition}
 
+The subscript on $\star$ shall be omitted below where the meaning is clear from the context.
+
+We now show that $F$ preserves the retract properties of $\squash_S$ and $\split_S$ in $\cat{C}$ for $\star \Rightarrow \star$ and $\star \times \star$. That is, we shall show that $F(\star) \lolli F(\star)$ is a retract of $F\star$, as is $F\star \otimes F\star$.
 \vspace{-15px}
 \bibliographystyle{plainurl} \bibliography{ref}
 
