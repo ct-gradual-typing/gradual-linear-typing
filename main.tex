@@ -157,7 +157,9 @@
   \end{enumerate}
   that satisfy the following additional conditions:
   \begin{enumerate}
-  \item $F\ast \lolli F\ast$ is a retract of $F(\ast \Rightarrow \ast)$. That is, there exist morphisms $m_r : F(\ast) \lolli F(\ast) \mto F(\ast \Rightarrow \ast)$ and $m_l : F(\ast \Rightarrow \ast) \mto F(\ast) \lolli F(star)$ with $m_r ; m_l = \id_{F(\ast) \lolli F(\ast)}$.
+  \item $F\ast \lolli F\ast$ is a retract of $F(\ast \Rightarrow \ast)$. That is, there exist morphisms
+    $m_r : F(\ast) \lolli F(\ast) \mto F(\ast \Rightarrow \ast)$ and
+    $m_l : F(\ast \Rightarrow \ast) \mto F(\ast) \lolli F(\ast)$ with $m_r ; m_l = \id_{F(\ast) \lolli F(\ast)}$.
   \item $G(\ast) \cong \ast$
   \end{enumerate}
 
@@ -171,19 +173,27 @@ We now show that $F$ preserves the retract properties of $\squash_S$ and $\split
   $F(\ast) \lolli F(\ast)$ is a retract of $F\ast$ with morphisms $\cat{L}\squash_{F\ast \lolli F\ast} \coloneqq m_{\ast,\ast} ; F \squash_{\ast \Rightarrow \ast}$ and $\cat{L}\split \coloneqq  F \split_{\ast \Rightarrow \ast} ; p_{\ast,\ast} $.
 \end{lemma}
 \begin{proof}
-  Observe that
+  Observe that:
 
-  %
-  %
-  %    \cat{L}\squash ; \cat{L}\split& =  m_{\ast,\ast} ; F \squash_{\ast \Rightarrow \ast} ; F \split_{\ast \Rightarrow \ast} ; p_{\ast,\ast} \\
-   %& = m_{\ast,\ast} ; F(\squash_{\ast \Rightarrow \ast} ; \split_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
-   % & = m_{\ast,\ast} ; F(id_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
-   % & = m_{\ast, \ast} ; id_{F(\ast \Rightarrow \ast)} ; p_{\ast, \ast} \\
-   % & = m_{\ast, \ast} ; p_{\ast, \ast} \\
-   % & = \id_{F(\ast) \otimes F(\ast)}
+  \[
+  \setlength{\arraycolsep}{2px}
+  \begin{array}{lll}
+    \cat{L}\squash ; \cat{L}\split
+    & = & m_{\ast,\ast} ; F \squash_{\ast \Rightarrow \ast} ; F \split_{\ast \Rightarrow \ast} ; p_{\ast,\ast} \\
+    & = & m_{\ast,\ast} ; F(\squash_{\ast \Rightarrow \ast} ; \split_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
+    & = & m_{\ast,\ast} ; F(id_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
+    & = & m_{\ast, \ast} ; id_{F(\ast \Rightarrow \ast)} ; p_{\ast, \ast} \\
+    & = & m_{\ast, \ast} ; p_{\ast, \ast} \\
+    & = & \id_{F(\ast) \otimes F(\ast)}
+  \end{array}
+  \]
+
 \end{proof}
 \vspace{-15px}
-\bibliographystyle{plainurl} \bibliography{ref}
+
+\nocite{*}
+\bibliographystyle{plainurl}
+\bibliography{ref}
 
 \end{document}
 
