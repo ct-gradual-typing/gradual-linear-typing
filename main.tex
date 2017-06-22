@@ -109,9 +109,11 @@
 \newcommand{\split}[0]{\mathsf{split}}
 \newcommand{\squash}[0]{\mathsf{squash}}
 \newcommand{\bx}[0]{\mathsf{box}}
+\newcommand{\Bx}[0]{\mathsf{Box}}
 \newcommand{\error}[0]{\mathsf{error}}
 \newcommand{\err}[0]{\mathsf{err}}
 \newcommand{\unbox}[0]{\mathsf{unbox}}
+\newcommand{\Unbox}[0]{\mathsf{Unbox}}
 
 \newenvironment{changemargin}[2]{%
   \begin{list}{}{%
@@ -142,7 +144,7 @@
 \begin{document}
 
 \title{\vspace{-45px}On gradual LNL-models}
-\author{Harley Eades III and Richard Blair}
+\author{Richard Blair and Harley Eades III}
 \date{Computer Science, Augusta University\\Computer Science, University of Iowa}
 
 \maketitle 
@@ -152,25 +154,30 @@
 \begin{definition} A \textbf{gradual LNL-model} consists of
   \begin{enumerate}
   \item a gradual $\lambda$-model $G\lambda^\ast = (\cat{T}, \cat{C}, \ast_{\cat{C}}, \T, \split, \squash, \bx, \unbox, \error)$
-  \item a symmetric monoidal closed category $(\cat{L}, I, \otimes, \multimap)$ with distinguished object $\ast_{\cat{L}}$
-  \item a pair of symmetric monoidal functors $(G, n) : \cat{L} \mto \cat{C}$ and $(F, m) : \cat{C} \mto \cat{L}$ forming a symmetric monoidal adjunction with $F \dashv G$.
+  \item a symmetric monoidal closed category $(\cat{L}, I, \otimes, \lolli)$ with distinguished object $\ast_{\cat{L}}$
+  \item a pair of strong closed monoidal functors $(G, n) : \cat{L} \mto \cat{C}$ and $(F, \hat{F}) : \cat{C} \mto \cat{L}$ forming a monoidal adjunction with $F \dashv G$.
   \end{enumerate}
-  that satisfy the following additional conditions:
-  \begin{enumerate}
-  \item $F\ast \lolli F\ast$ is a retract of $F(\ast \Rightarrow \ast)$. That is, there exist morphisms
-    $m_r : F(\ast) \lolli F(\ast) \mto F(\ast \Rightarrow \ast)$ and
-    $m_l : F(\ast \Rightarrow \ast) \mto F(\ast) \lolli F(\ast)$ with $m_r ; m_l = \id_{F(\ast) \lolli F(\ast)}$.
-  \item $G(\ast) \cong \ast$
-  \end{enumerate}
-
+  
 \end{definition}
 
+\begin{theorem}
+  A gradual LNL-model is an LNL model.
+\end{theorem}
+   
 The subscript on $\ast$ shall be omitted below where the meaning is clear from the context.
 
-We now show that $F$ preserves the retract properties of $\squash_S$ and $\split_S$ in $\cat{C}$ for $\ast \Rightarrow \ast$ and $\ast \times \ast$. That is, we shall show that $F(\ast) \lolli F(\ast)$ is a retract of $F\ast$, as is $F\ast \otimes F\ast$.
+We now prepare to show that $FG$ preserves the retract properties of $\squash_S$ and $\split_S$ in $\cat{C}$ for $\ast \Rightarrow \ast$ and $\ast \times \ast$. That is, we shall show that $FG(\ast) \lolli FG(\ast)$ is a retract of $FG\ast$, as is $FG\ast \otimes FG\ast$.
 
 \begin{lemma}
-  $F(\ast) \lolli F(\ast)$ is a retract of $F\ast$ with morphisms $\cat{L}\squash_{F\ast \lolli F\ast} \coloneqq m_{\ast,\ast} ; F \squash_{\ast \Rightarrow \ast}$ and $\cat{L}\split \coloneqq  F \split_{\ast \Rightarrow \ast} ; p_{\ast,\ast} $.
+  $FG(\ast) \lolli FG(\ast)$ is a retract of $FG\ast$ with morphisms
+  \[
+  \cat{L}\squash_{FG\ast \lolli FG\ast} \coloneqq \hat{F}_{\ast,\ast} ; F(\Unbox_{G\ast} \Rightarrow \Box{G\ast}); F \squash_{\ast \Rightarrow \ast} ; F(\Unbox_{G\ast})
+  \]
+  and
+  \[
+  \cat{L}\split_{FG \ast \lolli FG \ast} \coloneqq F(\Bx_{G\ast}) ; F\split_{\ast \Rightarrow \ast} ; F(\Bx_{G\ast} \Rightarrow \Unbox_{G\ast}) ;\hat{F}^{-1}_{\ast,\ast}
+  \]
+  % This doesn't work.
 \end{lemma}
 \begin{proof}
   Observe that:
@@ -180,11 +187,7 @@ We now show that $F$ preserves the retract properties of $\squash_S$ and $\split
   \begin{array}{lll}
     \cat{L}\squash ; \cat{L}\split
     & = & m_{\ast,\ast} ; F \squash_{\ast \Rightarrow \ast} ; F \split_{\ast \Rightarrow \ast} ; p_{\ast,\ast} \\
-    & = & m_{\ast,\ast} ; F(\squash_{\ast \Rightarrow \ast} ; \split_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
-    & = & m_{\ast,\ast} ; F(id_{\ast \Rightarrow \ast}) ; p_{\ast, \ast} \\
-    & = & m_{\ast, \ast} ; id_{F(\ast \Rightarrow \ast)} ; p_{\ast, \ast} \\
-    & = & m_{\ast, \ast} ; p_{\ast, \ast} \\
-    & = & \id_{F(\ast) \otimes F(\ast)}
+   
   \end{array}
   \]
 
