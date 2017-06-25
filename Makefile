@@ -2,7 +2,7 @@ PDFLATEX = pdflatex
 BIBTEX = bibtex
 OTT = ott
 OTT_FLAGS := -tex_wrap false -tex_show_meta true -picky_multiple_parses false
-SKIM = skim_revert.sh
+SKIM = no
 
 all: pdf
   # This is for my private machine.  It forces my PDF reader to reload.
@@ -13,7 +13,7 @@ all: pdf
 	$(SKIM) $(CURDIR)/main.pdf
   endif
 
-pdf : main.pdf
+pdf : main.pdf proofs.pdf
 
 quick : main.tex ref.bib Makefile
 	$(PDFLATEX) -jobname=main main.tex
@@ -32,6 +32,11 @@ main.pdf : main.tex ref.bib Makefile
 	$(BIBTEX) main
 	$(PDFLATEX) -jobname=main main.tex
 	$(PDFLATEX) -jobname=main main.tex
+
+proofs.pdf : proofs.tex Makefile
+	$(PDFLATEX) -jobname=proofs proofs.tex
+	$(PDFLATEX) -jobname=proofs proofs.tex
+	$(PDFLATEX) -jobname=proofs proofs.tex
 
 clean :
 	rm -f *.aux *.dvi *.ps *.log *-ott.tex *-output.tex *.bbl *.blg *.rel *.pdf *~ *.vtc *.out *.spl *-inc.tex

@@ -1,0 +1,222 @@
+\documentclass{article}
+
+\usepackage{amssymb,amsmath, amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{mathpartir}
+\usepackage[barr]{xy}
+\usepackage{mdframed}
+\usepackage{supertabular}
+\usepackage{todonotes}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{color}
+
+
+\usepackage{caption}
+\captionsetup[figure]{name=Diagram}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+
+%% This renames Barr's \to to \mto.  This allows us to use \to for imp
+%% and \mto for a inline morphism.
+\let\mto\to
+\let\to\relax
+\newcommand{\to}{\rightarrow}
+\newcommand{\ndto}[1]{\to_{#1}}
+\newcommand{\ndwedge}[1]{\wedge_{#1}}
+
+% Commands that are useful for writing about type theory and programming language design.
+%% \newcommand{\case}[4]{\text{case}\ #1\ \text{of}\ #2\text{.}#3\text{,}#2\text{.}#4}
+\newcommand{\interp}[1]{\llbracket #1 \rrbracket}
+\newcommand{\normto}[0]{\rightsquigarrow^{!}}
+\newcommand{\join}[0]{\downarrow}
+\newcommand{\redto}[0]{\rightsquigarrow}
+\newcommand{\nat}[0]{\mathbb{N}}
+\newcommand{\fun}[2]{\lambda #1.#2}
+\newcommand{\CRI}[0]{\text{CR-Norm}}
+\newcommand{\CRII}[0]{\text{CR-Pres}}
+\newcommand{\CRIII}[0]{\text{CR-Prog}}
+\newcommand{\subexp}[0]{\sqsubseteq}
+%% Must include \usepackage{mathrsfs} for this to work.
+
+\date{}
+
+\let\b\relax
+\let\d\relax
+\let\t\relax
+\let\r\relax
+\let\c\relax
+\let\j\relax
+\let\wn\relax
+\let\H\relax
+\let\split\relax
+\let\S\relax
+
+% Cat commands.
+\newcommand{\powerset}[1]{\mathcal{P}(#1)}
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\func}[1]{\mathsf{#1}}
+\newcommand{\iso}[0]{\mathsf{iso}}
+\newcommand{\H}[0]{\func{H}}
+\newcommand{\J}[0]{\func{J}}
+\newcommand{\catop}[1]{\cat{#1}^{\mathsf{op}}}
+\newcommand{\Hom}[3]{\mathsf{Hom}_{\cat{#1}}(#2,#3)}
+\newcommand{\limp}[0]{\multimap}
+\newcommand{\colimp}[0]{\multimapdotinv}
+\newcommand{\dial}[1]{\mathsf{Dial_{#1}}(\mathsf{Sets^{op}})}
+\newcommand{\dialSets}[1]{\mathsf{Dial_{#1}}(\mathsf{Sets})}
+\newcommand{\dcSets}[1]{\mathsf{DC_{#1}}(\mathsf{Sets})}
+\newcommand{\sets}[0]{\mathsf{Sets}}
+\newcommand{\obj}[1]{\mathsf{Obj}(#1)}
+\newcommand{\mor}[1]{\mathsf{Mor(#1)}}
+\newcommand{\id}[0]{\mathsf{id}}
+\newcommand{\lett}[0]{\mathsf{let}\,}
+\newcommand{\inn}[0]{\,\mathsf{in}\,}
+\newcommand{\cur}[1]{\mathsf{cur}(#1)}
+\newcommand{\curi}[1]{\mathsf{cur}^{-1}(#1)}
+\newcommand{\lolli}{\multimap}
+
+\newcommand{\w}[1]{\mathsf{weak}_{#1}}
+\newcommand{\c}[1]{\mathsf{contra}_{#1}}
+\newcommand{\cL}[1]{\mathsf{contraL}_{#1}}
+\newcommand{\cR}[1]{\mathsf{contraR}_{#1}}
+\newcommand{\e}[1]{\mathsf{ex}_{#1}}
+
+\newcommand{\m}[1]{\mathsf{m}_{#1}}
+\newcommand{\n}[1]{\mathsf{n}_{#1}}
+\newcommand{\b}[1]{\mathsf{b}_{#1}}
+\newcommand{\d}[1]{\mathsf{d}_{#1}}
+\newcommand{\h}[1]{\mathsf{h}_{#1}}
+\newcommand{\p}[1]{\mathsf{p}_{#1}}
+\newcommand{\q}[1]{\mathsf{q}_{#1}}
+\newcommand{\t}[0]{\mathsf{t}}
+\newcommand{\r}[1]{\mathsf{r}_{#1}}
+\newcommand{\s}[1]{\mathsf{s}_{#1}}
+\newcommand{\j}[1]{\mathsf{j}_{#1}}
+\newcommand{\jinv}[1]{\mathsf{j}^{-1}_{#1}}
+\newcommand{\wn}[0]{\mathop{?}}
+\newcommand{\codiag}[1]{\bigtriangledown_{#1}}
+\newcommand{\T}[0]{\mathsf{T}}
+
+\newcommand{\split}[0]{\mathsf{split}}
+\newcommand{\squash}[0]{\mathsf{squash}}
+\newcommand{\bx}[0]{\mathsf{box}}
+\newcommand{\Bx}[0]{\mathsf{Box}}
+\newcommand{\error}[0]{\mathsf{error}}
+\newcommand{\err}[0]{\mathsf{err}}
+\newcommand{\unbox}[0]{\mathsf{unbox}}
+\newcommand{\Unbox}[0]{\mathsf{Unbox}}
+
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+
+\newenvironment{diagram}{
+  \begin{center}
+    \begin{math}
+      \bfig
+}{
+      \efig
+    \end{math}
+  \end{center}
+}
+
+%% %% Ott
+%% \input{BiLNL-inc}
+
+\urldef{\mailsa}\path|{heades}@augusta.edu|
+
+\begin{document}
+
+\title{\vspace{-45px}On gradual LNL-models}
+\author{Richard Blair and Harley Eades III}
+\date{Computer Science, Augusta University\\Computer Science, University of Iowa}
+
+\maketitle 
+
+\section{Closed functors are monoidal}
+
+\begin{definition} A \textbf{monoidal category} is a category $\cat{M}$ equipped with a bifunctor $ - \otimes - : \m \times \cat{M} \mto \cat{M}$, a distinguished object $I$, and natural isomorphisms
+  \begin{gather}
+    \alpha_{X,Y,Z} : (X \otimes Y) \otimes Z \mto X \otimes (Y \otimes Z) \\
+    l_{X} : I \otimes X \mto X \\
+    r_{X} : X \otimes I \mto X
+  \end{gather}
+  for which the following two coherence diagrams commute:
+\begin{center}
+  \begin{math}
+    \bfig
+    \node botleft(0,0)[((W \otimes X) \otimes Y)]
+    \node midleft(0,900)[(W \otimes X) \otimes (Y \otimes Z)]
+    \node topleft(0,1800)[((W \otimes X) \otimes Y) \otimes Z]
+    \node botright(1800,0)[W \otimes ((X \otimes Y) \otimes Z)]
+    \node topright(1800,1800)[(W \otimes (X \otimes Y)) \otimes Z]
+    \arrow[topleft`midleft; \alpha]
+    \arrow[midleft`botleft; \alpha]
+    \arrow|b|/<-/[botleft`botright; 1 \, \otimes \, \alpha]
+    \arrow[topleft`topright; \alpha \, \otimes \, 1]
+    \arrow|r|[topright`botright; \alpha]
+    \efig
+  \end{math}
+  \vspace{15px}
+  \begin{math}
+    \bfig
+    \Vtriangle[(X \otimes I) \otimes Y`X \otimes (I \otimes Y)`X \otimes Y;\alpha`r \, \otimes \, 1`1 \, \otimes \: l]
+    \efig
+  \end{math}
+\end{center}
+and for which $l_I = r_I$.
+\end{definition}
+
+\begin{definition}
+A \textbf{closed monoidal category} is a monoidal category $(\cat{M} \otimes, l, I, \alpha, l, r)$ such that for each $B \in \cat{M}_0$ the functor $- \otimes B : \cat{M} \mto \cat{M}$ has a specified right adjoint; that is, for every $A, C \in \cat{M}_0$ an object $(B \lolli C)$ and a natural bijection $\cat{M}(A \otimes B, C) \cong \cat{M}(A, B \lolli C)$.
+\end{definition}
+
+\begin{definition} Given monoidal categories $(\cat{M}, \otimes, I, \alpha, l, r)$ and $(\cat{M}^\prime, \otimes^\prime, I^\prime, \alpha^\prime, l^\prime, r^\prime)$ \textbf{monoidal functor} $F : \cat{M} \mto \cat{M}^\prime$ is a functor from $\cat{M}$ to $\cat{M}^\prime$ equipped with a map $m_I : I^\prime \mto F(I)$ in $\cat{M}^\prime$ and a natural transformation $m_{X,Y} : F(X) \otimes^\prime F(Y) \mto F(X \otimes Y)$ satisfying the following coherence conditions:
+  \begin{center}
+    \begin{math}
+      \bfig
+      \node botleft(0,0)[F((X \otimes Y) \otimes Z)]
+      \node midleft(0,900)[F(X \otimes Y) \otimes^\prime F(Z)]
+      \node topleft(0,1800)[(F(X) \otimes^\prime F(Y)) \otimes^\prime F(Z)]
+      \node botright(1800,0)[F(X \otimes (Y \otimes Z))]
+      \node midright(1800,900)[F(X) \otimes^\prime F(Y \otimes Z)]
+      \node topright(1800,1800)[F(X) \otimes^\prime (F(Y) \otimes^\prime F(Z))]
+      \arrow[topleft`midleft; m \, \otimes^\prime \, 1]
+      \arrow[midleft`botleft; m]
+      \arrow|b|[botleft`botright; F(\alpha)]
+      \arrow[topleft`topright; \alpha^\prime]
+      \arrow|r|[topright`midright; 1 \, \otimes^\prime \, m]
+      \arrow|r|[midright`botright; m]
+      \efig
+    \end{math}
+    \end{center}
+\end{definition}
+
+\begin{definition} Given closed monoidal categories $(\cat{M} \otimes, l, I, \alpha, l, r)$ and $(\cat{M}^\prime, \otimes^\prime, l^\prime, I^\prime, \alpha, l, r)$
+\end{definition}
+\vspace{-15px}
+
+\nocite{*}
+\bibliographystyle{plainurl}
+\bibliography{ref}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
