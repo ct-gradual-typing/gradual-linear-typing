@@ -189,26 +189,57 @@ A \textbf{closed monoidal category} is a monoidal category $(\cat{M} \otimes, l,
   \begin{center}
     \begin{math}
       \bfig
-      \node botleft(0,0)[F((X \otimes Y) \otimes Z)]
-      \node midleft(0,900)[F(X \otimes Y) \otimes^\prime F(Z)]
-      \node topleft(0,1800)[(F(X) \otimes^\prime F(Y)) \otimes^\prime F(Z)]
-      \node botright(1800,0)[F(X \otimes (Y \otimes Z))]
-      \node midright(1800,900)[F(X) \otimes^\prime F(Y \otimes Z)]
-      \node topright(1800,1800)[F(X) \otimes^\prime (F(Y) \otimes^\prime F(Z))]
-      \arrow[topleft`midleft; m \, \otimes^\prime \, 1]
-      \arrow[midleft`botleft; m]
-      \arrow|b|[botleft`botright; F(\alpha)]
-      \arrow[topleft`topright; \alpha^\prime]
-      \arrow|r|[topright`midright; 1 \, \otimes^\prime \, m]
-      \arrow|r|[midright`botright; m]
-      \efig
+        \node botleft(0,0)[F((X \otimes Y) \otimes Z)]
+        \node midleft(0,900)[F(X \otimes Y) \otimes^\prime F(Z)]
+        \node topleft(0,1800)[(F(X) \otimes^\prime F(Y)) \otimes^\prime F(Z)]
+        \node botright(1800,0)[F(X \otimes (Y \otimes Z))]
+        \node midright(1800,900)[F(X) \otimes^\prime F(Y \otimes Z)]
+        \node topright(1800,1800)[F(X) \otimes^\prime (F(Y) \otimes^\prime F(Z))]
+        \arrow[topleft`midleft; m \, \otimes^\prime \, 1]
+        \arrow[midleft`botleft; m]
+        \arrow|b|[botleft`botright; F(\alpha)]
+        \arrow[topleft`topright; \alpha^\prime]
+        \arrow|r|[topright`midright; 1 \, \otimes^\prime\, m]
+        \arrow|r|[midright`botright; m]
+        \efig
     \end{math}
-    \end{center}
+  \end{center}
+
+  \begin{center}
+    \begin{math}
+      \bfig
+      \square(0,0)/>`>`<-`>/<800,800>[I^\prime \otimes^\prime F(X)`F(X)`F(I)\otimes^\prime F(X)`F(I \otimes X);l^\prime`m \, \otimes^\prime \, 1`F(l)`m]
+      \efig
+      \bfig
+      \square(0,0)/>`>`<-`>/<800,800>[F(X) \otimes^\prime I^\prime`F(X)`F(X)\otimes^\prime F(I)`F(X \otimes I);r^\prime`1 \, \otimes^\prime \, m`F(r)`m]
+      \efig
+    \end{math} 
+  \end{center}
 \end{definition}
 
-\begin{definition} Given closed monoidal categories $(\cat{M} \otimes, l, I, \alpha, l, r)$ and $(\cat{M}^\prime, \otimes^\prime, l^\prime, I^\prime, \alpha, l, r)$
+\begin{definition} Given closed monoidal categories $(\cat{M}, \otimes, \Rightarrow, l, I, \alpha, l)$ and $(\cat{M}^\prime, \otimes^\prime, \Rightarrow^\prime, l^\prime, I^\prime, \alpha, l, r)$, a \textbf{closed functor} $F : \cat{M} \mto \cat{M}^\prime$ is a functor from $\cat{M}$ to $\cat{M}^\prime$ equipped with a map $\mu_I : I^\prime \mto F(I)$ and a natural transformation $\phi_{X,Y} : F(X \Rightarrow Y) \mto F(X) \Rightarrow^\prime F(Y)$ such that the following coherence conditions hold:
+
+  \begin{center}
+    \begin{math}
+      \bfig
+      \square(0,0)<800,800>[F(I)`F(X \Rightarrow X)`I^\prime`F(X) \Rightarrow^\prime F(X);F(\cur{\l_X})`\mu_I`\phi_{X,Y}`\cur{l_X}]
+      \efig
+      \bfig
+      \square(0,0)<800,800>[F(I \Rightarrow X)`F(I) \Rightarrow^\prime F(X)`F(X)`I^\prime \Rightarrow^\prime F(X); \phi_{I,X} ` F(\cur{r_X}^{-1}) ` \mu_I \Rightarrow^\prime 1 `\cur{r_{F(X)}^{\prime}}]
+      \efig
+    \end{math}
+  \end{center}
+  
+  
 \end{definition}
 \vspace{-15px}
+
+\begin{theorem} A closed functor $(F, \mu_I, \phi_{X,Y})$ between closed monoidal categories $(\cat{M}, \otimes, \Rightarrow, l, I, \alpha, l)$
+  and $(\cat{M}^\prime, \otimes^\prime, \Rightarrow^\prime, l^\prime, I^\prime, \alpha^\prime, l^\prime, r^\prime)$ is a monoidal functor, taking $m_I = \mu_I$ and $m_{X,Y} = \curi{F(\cur{id_{X \otimes Y}});\phi_{Y, X \otimes Y}}$.
+\end{theorem}
+\begin{proof}
+  To come...
+\end{proof}
 
 \nocite{*}
 \bibliographystyle{plainurl}
